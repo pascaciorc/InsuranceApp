@@ -1,4 +1,4 @@
-package com.pascaciorc.insuranceapp
+package com.pascaciorc.insuranceapp.ui.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
