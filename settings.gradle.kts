@@ -20,4 +20,6 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "InsuranceApp"
-include(":app")
+include(":presentation")
+include(":data")
+include(":domain")
