@@ -19,7 +19,12 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.pascaciorc.insuranceapp.ui.feed.FeedScreen
 import com.pascaciorc.insuranceapp.ui.theme.InsuranceAppTheme
+import kotlinx.serialization.Serializable
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -28,8 +33,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             InsuranceAppTheme {
+                val navController = rememberNavController()
                 Scaffold(
-                    modifier = Modifier.fillMaxSize(),
                     topBar = {
                         CenterAlignedTopAppBar(
                             colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
@@ -46,19 +51,22 @@ class MainActivity : ComponentActivity() {
                                 }
                             },
                         )
+                    },
+                    content = { padding ->
+                        NavHost(
+                            navController = navController,
+                            startDestination = FeedScreen
+                        ) {
+                            composable<FeedScreen> {
+                                FeedScreen(modifier = Modifier.padding(padding))
+                            }
+                        }
                     }
-                ) { innerPadding ->
-
-                }
+                )
             }
         }
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    InsuranceAppTheme {
-
-    }
-}
+@Serializable
+object FeedScreen
