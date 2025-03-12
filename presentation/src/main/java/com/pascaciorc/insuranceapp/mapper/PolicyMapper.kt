@@ -11,3 +11,12 @@ fun PolicyEntity.toPresentation() = PolicyItem(
     amount = amount,
     type = type,
 )
+
+fun PolicyItem.toDomain() = PolicyEntity(
+    id = id,
+    issueDate = issueDate,
+    expiryDate = expiryDate,
+    insuredName = insuredName,
+    amount = amount,
+    type = type,
+)

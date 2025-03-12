@@ -35,6 +35,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.pascaciorc.insuranceapp.R
 import com.pascaciorc.insuranceapp.entities.PolicyItem
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -79,10 +82,14 @@ fun FeedScreen(
 fun PolicyCard(item: PolicyItem) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
-        modifier = Modifier.fillMaxSize().padding(16.dp)
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
     ) {
         Row(
-            modifier = Modifier.fillMaxSize().padding(16.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -90,11 +97,21 @@ fun PolicyCard(item: PolicyItem) {
                 Text(text = "Policy ID: ${item.id}")
                 Text(text = "Owner: ${item.insuredName}")
                 Text("Amount: $${item.amount}")
-                Text(text = "Expiry Date: ${item.expiryDate}")
+                val date = Date(item.expiryDate)
+                val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val formattedDate = format.format(date)
+                Text(text = "Expiry Date: $formattedDate")
             }
             Column {
+                val drawable = when (item.type) {
+                    0 -> R.drawable.person
+                    1 -> R.drawable.airplane
+                    2 -> R.drawable.pet
+                    3 -> R.drawable.car
+                    else -> R.drawable.drop_down
+                }
                 Image(
-                    painter = painterResource(R.drawable.airplane), "Insurance type",
+                    painter = painterResource(drawable), "Insurance type",
                     modifier = Modifier.size(80.dp),
                 )
             }

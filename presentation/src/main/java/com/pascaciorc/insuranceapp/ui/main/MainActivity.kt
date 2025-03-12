@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.pascaciorc.insuranceapp.ui.create.CreatePolicyScreen
 import com.pascaciorc.insuranceapp.ui.feed.FeedScreen
 import com.pascaciorc.insuranceapp.ui.theme.InsuranceAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +32,15 @@ class MainActivity : ComponentActivity() {
                         FeedScreen(
                             modifier = Modifier.padding(),
                             onAddClicked = {
+                                navController.navigate(CreatePolicyScreen)
+                            }
+                        )
+                    }
+                    composable<CreatePolicyScreen> {
+                        CreatePolicyScreen(
+                            modifier = Modifier.padding(),
+                            onBackClicked = {
+                                navController.navigateUp()
                             }
                         )
                     }
@@ -42,3 +52,6 @@ class MainActivity : ComponentActivity() {
 
 @Serializable
 object FeedScreen
+
+@Serializable
+object CreatePolicyScreen

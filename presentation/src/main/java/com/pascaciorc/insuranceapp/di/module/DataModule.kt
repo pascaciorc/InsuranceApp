@@ -5,6 +5,7 @@ import com.pascaciorc.data.repository.PolicyDataSource
 import com.pascaciorc.data.repository.PolicyDataSourceImpl
 import com.pascaciorc.data.repository.PolicyRepositoryImpl
 import com.pascaciorc.domain.repository.PoliciesRepository
+import com.pascaciorc.domain.usecase.CreatePolicyUseCase
 import com.pascaciorc.domain.usecase.GetPoliciesUseCase
 import dagger.Module
 import dagger.Provides
@@ -35,4 +36,6 @@ class DataModule {
     @Provides
     fun provideGetEntriesUseCase(repository: PoliciesRepository) = GetPoliciesUseCase(repository)
 
+    @Provides
+    fun provideCreatePolicyUseCase(repository: PoliciesRepository) = CreatePolicyUseCase(repository)
 }

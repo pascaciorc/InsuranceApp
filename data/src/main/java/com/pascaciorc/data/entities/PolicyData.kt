@@ -23,3 +23,12 @@ fun PolicyData.toDomain() = PolicyEntity(
     amount = amount,
     type = type,
 )
+
+fun PolicyEntity.toData() = PolicyData(
+    id = id,
+    issueDate = issueDate,
+    expiryDate = expiryDate,
+    insuredName = insuredName,
+    amount = amount,
+    type = type,
+)
