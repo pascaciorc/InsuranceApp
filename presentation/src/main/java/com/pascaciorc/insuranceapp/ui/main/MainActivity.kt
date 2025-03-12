@@ -10,7 +10,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.pascaciorc.insuranceapp.ui.create.CreatePolicyScreen
+import com.pascaciorc.insuranceapp.ui.edit.EditPolicyScreen
 import com.pascaciorc.insuranceapp.ui.feed.FeedScreen
 import com.pascaciorc.insuranceapp.ui.theme.InsuranceAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,17 +33,23 @@ class MainActivity : ComponentActivity() {
                     composable<FeedScreen> {
                         FeedScreen(
                             modifier = Modifier.padding(),
-                            onAddClicked = {
-                                navController.navigate(CreatePolicyScreen)
-                            }
+                            onAddClicked = { navController.navigate(CreatePolicyScreen) },
+                            onCardClicked = { navController.navigate(EditPolicy(it)) }
                         )
                     }
                     composable<CreatePolicyScreen> {
                         CreatePolicyScreen(
                             modifier = Modifier.padding(),
-                            onBackClicked = {
-                                navController.navigateUp()
-                            }
+                            onBackClicked = { navController.navigateUp() }
+                        )
+                    }
+
+                    composable<EditPolicy> {
+                        val args = it.toRoute<EditPolicy>()
+                        EditPolicyScreen(
+                            modifier = Modifier.padding(),
+                            item = args.item,
+                            onBackClicked = { navController.navigateUp() }
                         )
                     }
                 }
@@ -49,9 +57,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-@Serializable
-object FeedScreen
-
-@Serializable
-object CreatePolicyScreen

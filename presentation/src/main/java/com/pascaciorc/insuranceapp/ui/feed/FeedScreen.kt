@@ -35,6 +35,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.pascaciorc.insuranceapp.R
 import com.pascaciorc.insuranceapp.entities.PolicyItem
+import com.pascaciorc.insuranceapp.ui.helper.toDateFormat
+import com.pascaciorc.insuranceapp.ui.helper.toDrawable
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -44,6 +48,7 @@ import java.util.Locale
 fun FeedScreen(
     modifier: Modifier,
     onAddClicked: () -> Unit,
+    onCardClicked: (String) -> Unit,
     viewModel: FeedViewModel = hiltViewModel()
 ) {
     viewModel.getPolicies()
@@ -70,7 +75,7 @@ fun FeedScreen(
             Column(modifier = modifier.padding(padding)) {
                 LazyColumn {
                     items(items = state.policies) { item ->
-                        PolicyCard(item)
+                        PolicyCard(item) { onCardClicked.invoke(Json.encodeToString(item)) }
                     }
                 }
             }
@@ -79,12 +84,13 @@ fun FeedScreen(
 }
 
 @Composable
-fun PolicyCard(item: PolicyItem) {
+fun PolicyCard(item: PolicyItem, onCardClicked: () -> Unit) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(16.dp),
+        onClick = { onCardClicked.invoke() }
     ) {
         Row(
             modifier = Modifier
@@ -97,21 +103,11 @@ fun PolicyCard(item: PolicyItem) {
                 Text(text = "Policy ID: ${item.id}")
                 Text(text = "Owner: ${item.insuredName}")
                 Text("Amount: $${item.amount}")
-                val date = Date(item.expiryDate)
-                val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                val formattedDate = format.format(date)
-                Text(text = "Expiry Date: $formattedDate")
+                Text(text = "Expiry Date: ${item.expiryDate.toDateFormat()}")
             }
             Column {
-                val drawable = when (item.type) {
-                    0 -> R.drawable.person
-                    1 -> R.drawable.airplane
-                    2 -> R.drawable.pet
-                    3 -> R.drawable.car
-                    else -> R.drawable.drop_down
-                }
                 Image(
-                    painter = painterResource(drawable), "Insurance type",
+                    painter = painterResource(item.type.toDrawable()), "Insurance type",
                     modifier = Modifier.size(80.dp),
                 )
             }

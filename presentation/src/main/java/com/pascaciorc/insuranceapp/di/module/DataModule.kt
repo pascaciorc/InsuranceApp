@@ -6,6 +6,7 @@ import com.pascaciorc.data.repository.PolicyDataSourceImpl
 import com.pascaciorc.data.repository.PolicyRepositoryImpl
 import com.pascaciorc.domain.repository.PoliciesRepository
 import com.pascaciorc.domain.usecase.CreatePolicyUseCase
+import com.pascaciorc.domain.usecase.DeletePolicyUseCase
 import com.pascaciorc.domain.usecase.GetPoliciesUseCase
 import dagger.Module
 import dagger.Provides
@@ -38,4 +39,7 @@ class DataModule {
 
     @Provides
     fun provideCreatePolicyUseCase(repository: PoliciesRepository) = CreatePolicyUseCase(repository)
+
+    @Provides
+    fun provideDeletePolicyUseCase(repository: PoliciesRepository) = DeletePolicyUseCase(repository)
 }

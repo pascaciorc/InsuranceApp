@@ -1,6 +1,7 @@
 package com.pascaciorc.data.db
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.pascaciorc.data.entities.PolicyData
@@ -12,4 +13,7 @@ interface InsuranceDao {
 
     @Insert
     fun setPolicy(data: PolicyData)
+
+    @Delete
+    fun deletePolicy(data: PolicyData)
 }

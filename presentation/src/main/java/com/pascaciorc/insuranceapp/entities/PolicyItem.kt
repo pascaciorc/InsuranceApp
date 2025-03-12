@@ -1,5 +1,8 @@
 package com.pascaciorc.insuranceapp.entities
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class PolicyItem(
     val id: Int = 0,
     val issueDate: Long,

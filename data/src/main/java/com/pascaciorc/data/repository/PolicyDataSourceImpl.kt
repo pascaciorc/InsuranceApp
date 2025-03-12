@@ -7,8 +7,14 @@ class PolicyDataSourceImpl(
     private val dao: InsuranceDao
 ) : PolicyDataSource {
     override fun getPolicies() = dao.getPolicies()
+
     override fun setPolicy(data: PolicyData): Boolean {
         dao.setPolicy(data)
+        return true
+    }
+
+    override fun deletePolicy(data: PolicyData): Boolean {
+        dao.deletePolicy(data)
         return true
     }
 }

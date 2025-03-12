@@ -14,4 +14,9 @@ class PolicyRepositoryImpl(
         source.setPolicy(entity.toData())
         return true
     }
+
+    override fun deletePolicy(entity: PolicyEntity): Boolean {
+        source.deletePolicy(entity.toData())
+        return true
+    }
 }
