@@ -2,6 +2,7 @@ package com.pascaciorc.data.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.pascaciorc.domain.entities.PolicyEntity
 
 @Entity(tableName = "policy")
 data class PolicyData(
@@ -12,4 +13,13 @@ data class PolicyData(
     val insuredName: String,
     val amount: Float,
     val type: Int,
+)
+
+fun PolicyData.toDomain() = PolicyEntity(
+    id = id,
+    issueDate = issueDate,
+    expiryDate = expiryDate,
+    insuredName = insuredName,
+    amount = amount,
+    type = type,
 )
